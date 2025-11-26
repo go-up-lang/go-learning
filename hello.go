@@ -3,6 +3,7 @@ package main
 import "fmt"
 
 func addFor(numbers ...int) int {
+	fmt.Println(numbers)
 	for number, index := range numbers {
 		fmt.Println(number, index)
 	}
