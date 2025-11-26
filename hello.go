@@ -3,8 +3,8 @@ package main
 import "fmt"
 
 func addFor(numbers ...int) int {
-	for number := range numbers {
-		fmt.Println(number)
+	for number, index := range numbers {
+		fmt.Println(number, index)
 	}
 	return 0
 }
