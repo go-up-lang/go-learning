@@ -3,10 +3,10 @@ package main
 import (
 	"fmt"
 
-	"example.com/banking/banking"
+	"example.com/banking/accounts"
 )
 
 func main() {
-	account := banking.Account{Owner: "gyusun", Balance: 3}
+	account := accounts.NewAccount("gyusun")
 	fmt.Println(account)
 }
