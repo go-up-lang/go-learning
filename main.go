@@ -1,50 +1,28 @@
 package main
 
 import (
-	"errors"
 	"fmt"
-	"net/http"
+	"time"
 )
 
-var errRequestFailed = errors.New("Request failed")
-
 func main() {
-
-	var results = map[string]string{}
-	urls := []string{
-		"https://www.airbnb.com/",
-		"https://www.google.com/",
-		"https://www.amazon.com/",
-		"https://www.reddit.com/",
-		"https://www.google.com/",
-		"https://soundcloud.com/",
-		"https://www.facebook.com/",
-		"https://www.instagram.com/",
-		"http://www.failedcode.co/",
+	c := make(chan string)
+	people := []string{"nico", "gyusun"}
+	for _, person := range people {
+		go isSexy(person, c)
 	}
 
-	for _, url := range urls {
-		result := "OK"
-		err := hitURL(url)
-
-		if err != nil {
-			result = "FAILED"
-		}
-		results[url] = result
-	}
-
-	for url, result := range results {
-		fmt.Println(url, result)
-	}
-	fmt.Print("\n")
+	result1 := <-c
+	result2 := <-c
+	fmt.Println(result1)
+	fmt.Println(result2)
 }
 
-func hitURL(url string) error {
-	fmt.Println("CHECK:", url)
-	resp, err := http.Get(url)
-	if err != nil || resp.StatusCode >= 400 {
-		return errRequestFailed
+func isSexy(person string, c chan string) {
+	time.Sleep(time.Second * 5)
+	if person == "nico" {
+		c <- person + " false"
+	} else {
+		c <- person + " true"
 	}
-	return nil
-
 }
